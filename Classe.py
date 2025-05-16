@@ -59,39 +59,43 @@ class Classe(ABC):
 
 from Dado import D12
 class Guerreiro(Classe):
-    def __init__(self,):
-        pontos_vida = 10 +(pontos_defesa * 5)
+    def __init__(self):
+        pontos_defesa = 8
+        pontos_vida = 10 + (pontos_defesa * 5)
         dado_de_ataque = D12()
         pontos_ataque = 6
-        pontos_defesa = 8
         limite_habilidades = 2
         super().__init__("Guerreiro", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
+
     def atacar(self, alvo): 
-        # Implementação do ataque do Guerreiro
-        pass
+        # Exemplo simples de ataque
+        dano = self.dado_de_ataque.jogar() + self.pontos_ataque
+        print(f"{self.nome} ataca {alvo.nome} causando {dano} de dano!")
 
 from Dado import D6
 class Mago(Classe):
-    def __init__(self,):
-        pontos_vida = 8 + (pontos_defesa * 2    )
+    def __init__(self):
+        pontos_defesa = 3
+        pontos_vida = 8 + (pontos_defesa * 2)
         dado_de_ataque = D6()
         pontos_ataque = 10
-        pontos_defesa = 3
         limite_habilidades = 5
         super().__init__("Mago", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
+
     def atacar(self, alvo): 
-        # Implementação do ataque do Mago
-        pass    
+        dano = self.dado_de_ataque.jogar() + self.pontos_ataque
+        print(f"{self.nome} lança uma magia em {alvo.nome} causando {dano} de dano!")
 
 from Dado import D8
 class Ladinho(Classe):
-    def __init__(self,):
+    def __init__(self):
+        pontos_defesa = 5
         pontos_vida = 6 + (pontos_defesa * 3)
         dado_de_ataque = D8()
         pontos_ataque = 8
-        pontos_defesa = 5
         limite_habilidades = 3
         super().__init__("Ladinho", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
+
     def atacar(self, alvo): 
-        # Implementação do ataque do Ladinho
-        pass
+        dano = self.dado_de_ataque.jogar() + self.pontos_ataque
+        print(f"{self.nome} golpeia {alvo.nome} nas sombras causando {dano} de dano!")
