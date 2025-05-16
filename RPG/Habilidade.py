@@ -39,7 +39,7 @@ class Habilidade:
     def pontos_ataque(self, novo_pontos_ataque):
         self.__pontos_ataque = novo_pontos_ataque
     
-    def usar(self):
+    def usar(self, personagem_usa, alvo):
         """Método para usar a habilidade."""
         return f'Habilidade {self.__nome} usada! \n' \
                f'Descrição: {self.__descricao} \n' \

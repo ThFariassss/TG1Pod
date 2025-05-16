@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from .Jogo import *
+from .Erros import *
 
 class Classe(ABC):
     def __init__(self, nome, pontos_vida, dado_de_ataque, pontos_de_ataque, pontos_defesa, limite_habilidades):
@@ -57,7 +59,7 @@ class Classe(ABC):
     def limite_habilidades(self):
         return self.__limite_habilidades
 
-from Dado import D12
+#from Dado import D12
 class Guerreiro(Classe):
     def __init__(self):
         pontos_defesa = 8
@@ -72,7 +74,7 @@ class Guerreiro(Classe):
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque
         print(f"{self.nome} ataca {alvo.nome} causando {dano} de dano!")
 
-from Dado import D6
+#from Dado import D6
 class Mago(Classe):
     def __init__(self):
         pontos_defesa = 3
@@ -86,15 +88,15 @@ class Mago(Classe):
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque
         print(f"{self.nome} lança uma magia em {alvo.nome} causando {dano} de dano!")
 
-from Dado import D8
-class Ladinho(Classe):
+#from Dado import D8
+class Ladino(Classe):
     def __init__(self):
         pontos_defesa = 5
         pontos_vida = 6 + (pontos_defesa * 3)
         dado_de_ataque = D8()
         pontos_ataque = 8
         limite_habilidades = 3
-        super().__init__("Ladinho", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
+        super().__init__("Ladino", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
 
     def atacar(self, alvo): 
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque

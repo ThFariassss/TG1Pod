@@ -1,5 +1,6 @@
-from Classe import Classe
-from Dado import Dado
+from .Classe import *
+from .Erros import *
+from .Habilidade import *
 
 class Personagem:
     qtd_instancias = 0
@@ -7,9 +8,34 @@ class Personagem:
     def __init__(self, nome: str, classe: Classe, inventario: list):
         self.__nome = nome
         self.__classe = classe 
-        self.__inventario = inventario
-        self.__habilidade = None  
+        self.__inventario = inventario 
         Personagem.qtd_instancias += 1
+
+        @property
+        def nome(self):
+            return self.__nome
+        @nome.setter
+        def nome(self, novo_nome):
+            self.__nome = novo_nome
+
+        @property
+        def classe(self):
+            return self.__classe
+
+        @classe.setter
+        def classe(self, nova_classe):
+            if isinstance(nova_classe, Classe):
+                self.__classe = nova_classe
+            else:
+                raise ClasseInvalida("Classe deve ser uma instância da classe Classe.")
+
+        @property
+        def inventario(self):
+            return self.__inventario
+
+        @inventario.setter
+        def inventario(self, novo_inventario):
+            self.__inventario = novo_inventario
 
     def __str__(self):
         inventario_str = ', '.join(self.__inventario) if self.__inventario else "Vazio"
@@ -27,25 +53,12 @@ class Personagem:
             return self.__nome == other.__nome and self.__classe == other.__classe
         return False
 
-    @property
-    def nome(self):
-        return self.__nome
-
-    @property
-    def classe(self):
-        return self.__classe
-
-    @classe.setter
-    def classe(self, nova_classe):
-        self.__classe = nova_classe
-
-    @property
-    def inventario(self):
-        return self.__inventario
-
-    @inventario.setter
-    def inventario(self, novo_inventario):
-        self.__inventario = novo_inventario
+    def usar_habilidade(self):
+        """Método para usar uma habilidade (caso tenha)."""
+        if self.__habilidade:
+            return self.__habilidade.usar()
+        else:
+            return "Nenhuma habilidade disponível!"
 
     def atacar(self, alvo):
         """Método para atacar um alvo."""
@@ -57,9 +70,4 @@ class Personagem:
         else:
             return "Alvo inválido!"
 
-    def usar_habilidade(self):
-        """Método para usar uma habilidade (caso tenha)."""
-        if self.__habilidade:
-            return self.__habilidade.usar()
-        else:
-            return "Nenhuma habilidade disponível!"
+    
