@@ -1,5 +1,3 @@
-# Carregar.py
-
 from .Classe import *
 from .Personagem import *
 from .Erros import *
@@ -16,42 +14,67 @@ def baixar_personagem(caminho_name):
     erros = []
 
     try:
-        with open(caminho_name, 'r', encoding='utf-8') as gerador:
-            pasta = gerador.read()
-            blocos = pasta.strip().split('\n\n')  # <-- corrige para usar .strip()
+        with open(caminho_name, 'r', encoding='utf-8') as arquivo:
+            linhas = arquivo.readlines()
 
-            for bloco in blocos:
-                linhas = bloco.strip().split('\n')  # <-- corrigido aqui: bloco, não blocos
-                nome = None
-                classe = None
-                inventarios = []
+        nome = None
+        classe = None
+        habilidades = []
+        lendo_habilidades = False
 
-                for linha in linhas:
-                    linha = linha.strip()
-                         
-                    if linha.startswith('###'):
-                        nome = linha[4:].strip()
-                        print(f"Nome: {nome} ")
+        for linha in linhas:
+            linha = linha.strip()
+            
+            if not linha or linha.startswith("## "):
+                continue
 
-                    elif linha.startswith('- **Classe**:'):
-                        classe = linha.split(':')[1].strip()
-                        
-                    elif linha.startswith('**Habilidades**'):
-                        inventarios = linha.split(':')[1].strip().split(',')
-
-                if nome and classe and inventarios:
+            if linha.startswith("### "):  
+                if nome and classe and habilidades:
                     try:
-                        personagem = Personagem.logar_personag(nome, classe, inventarios[:5])
+                        personagem = Personagem.logar_personag(nome, classe, habilidades[:5])
                         personagens.append(personagem)
+                    except ClasseInvalida as e:
+                        erros.append([f"Erro de classe inválida para {nome}: {str(e)}"])
+                    except NLadosInvalido as e:
+                        erros.append([f"Erro de dados inválidos para {nome}: {str(e)}"])
                     except Exception as e:
                         erros.append([f"Erro ao instanciar personagem {nome}: {str(e)}"])
+                elif nome:
+                    erros.append([f"Dados incompletos: nome={nome}, classe={classe}, habilidades={habilidades}"])
+                
+                nome = linha[4:].strip()
+                classe = None
+                habilidades = []
+                lendo_habilidades = False
+
+            elif linha.startswith("- **Classe**:"):
+                classe = linha.split(":")[1].strip()
+                lendo_habilidades = False
+
+            elif linha.startswith("- **Habilidades**"):
+                lendo_habilidades = True  
+
+            elif lendo_habilidades and (linha.startswith("- ") or linha.startswith("  - ")):
+                if linha.startswith("  - "):
+                    habilidade = linha[4:].strip()
                 else:
-                    erros.append([f"Dados incompletos: nome={nome}, classe={classe}, inventarios={inventarios}"])
+                    habilidade = linha[2:].strip()
+                habilidades.append(habilidade)
 
-    except NLadosInvalido as e:
-        erros.append([f"Erro de dados de dado: {str(e)}"])
+        if nome and classe and habilidades:
+            try:
+                personagem = Personagem.logar_personag(nome, classe, habilidades[:5])
+                personagens.append(personagem)
+            except ClasseInvalida as e:
+                erros.append([f"Erro de classe inválida para {nome}: {str(e)}"])
+            except NLadosInvalido as e:
+                erros.append([f"Erro de dados inválidos para {nome}: {str(e)}"])
+            except Exception as e:
+                erros.append([f"Erro ao instanciar personagem {nome}: {str(e)}"])
+        elif nome:
+            erros.append([f"Dados incompletos: nome={nome}, classe={classe}, habilidades={habilidades}"])
 
-    except ClasseInvalida as e:
-        erros.append([f"Classe inválida: {str(e)}"])
-    print(f"Personagens:", personagens)
+    except Exception as e:
+        erros.append([f"Erro geral: {str(e)}"])
+
     return personagens, erros

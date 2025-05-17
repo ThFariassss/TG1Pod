@@ -1,9 +1,8 @@
 Erro
-"Dados incompletos: nome=None, classe=None, inventarios=[]"
-"Dados incompletos: nome=Aragorn, classe=Guerreiro, inventarios=[]"
-"Dados incompletos: nome=Gandalf, classe=Mago, inventarios=[]"
-"Dados incompletos: nome=Legolas, classe=Ladino, inventarios=[]"
-"Dados incompletos: nome=Boromir, classe=Guerreiro, inventarios=[]"
-"Dados incompletos: nome=Saruman, classe=Mago, inventarios=[]"
-"Dados incompletos: nome=Gollum, classe=Ladino, inventarios=[]"
-"Dados incompletos: nome=Frodo, classe=Ladino, inventarios=[]"
+Erro ao instanciar personagem Aragorn: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Gandalf: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Legolas: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Boromir: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Saruman: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Gollum: type object 'Personagem' has no attribute 'logar_personag'
+Erro ao instanciar personagem Frodo: type object 'Personagem' has no attribute 'logar_personag'

@@ -109,7 +109,7 @@ class Arena:
         if len(self.personagens) < 2:
             return "É necessário pelo menos dois personagens para iniciar o combate."
 
-        dado = Dado(20)  
+        dado = D20()  
         vivos = self.personagens.copy()
 
         turno = 0
