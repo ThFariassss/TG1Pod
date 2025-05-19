@@ -8,7 +8,7 @@ class Habilidade:
         return f'Habilidade: {self.__nome}\n' \
                f'Descrição: {self.__descricao}\n' \
                f'Ataque: {self.__pontos_ataque}'
-
+    
     def __eq__(self, other):
         if isinstance(other, Habilidade):
             return self.__nome == other.__nome and \
@@ -48,17 +48,20 @@ class Habilidade:
 class BolaDeFogo(Habilidade):
     def __init__(self, descricao):
         super().__init__('Bola de Fogo', descricao, 10)
+    """Método para usar a habilidade."""
     def usar(self):
         return super().usar()
 
 class Cura(Habilidade):
     def __init__(self, descricao):
         super().__init__('Cura', descricao, 10)
+    """Método para usar a habilidade."""
     def usar(self):
         return super().usar()
 
 class TiroDeArco(Habilidade):
     def __init__(self, descricao):
         super().__init__('Tiro de Arco', descricao, 6)
+    """Método para usar a habilidade."""
     def usar(self):
         return super().usar()

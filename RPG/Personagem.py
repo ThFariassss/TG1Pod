@@ -1,11 +1,9 @@
 from .Classe import *
 from .Erros import *
 from .Habilidade import *
-
 class Personagem:
     qtd_instancias = 0
-
-    def __init__(self, nome, classe, inventario ):
+    def __init__(self, nome, classe, inventario):
         self.__nome = nome
         self.__classe = classe 
         self.__inventario = inventario 
@@ -38,20 +36,10 @@ class Personagem:
     def inventario(self, novo_inventario):
         self.__inventario = novo_inventario
 
+            
+    """Método estático para criar um personagem a partir de dados carregados."""
     @staticmethod
     def logar_personag(nome, classe_nome, habilidades):
-        """
-        Método estático para criar um personagem a partir de dados carregados.
-        
-        Args:
-            nome (str): Nome do personagem
-            classe_nome (str): Nome da classe do personagem
-            habilidades (list): Lista de nomes de habilidades
-            
-        Returns:
-            Personagem: Instância de personagem criada
-        """
-        # Mapear nome da classe para a classe correspondente
         classes = {
             "Guerreiro": Guerreiro(),
             "Mago": Mago(),
@@ -60,12 +48,9 @@ class Personagem:
         
         if classe_nome not in classes:
             raise ClasseInvalida(f"Classe '{classe_nome}' não encontrada")
-            
         classe = classes[classe_nome]
-        
         if len(habilidades) > classe.limite_habilidades:
             raise ClasseInvalida(f"Personagem {nome} excede o limite de habilidades para a classe {classe_nome}")
-        
         habilidades_obj = []
         for hab_nome in habilidades:
             if hab_nome == "Bola de Fogo":
@@ -76,7 +61,6 @@ class Personagem:
                 habilidades_obj.append(TiroDeArco("Um tiro de arco que causa dano em área."))
             else:
                 habilidades_obj.append(Habilidade(hab_nome, f"Habilidade {hab_nome}", 5))
-        
         return Personagem(nome, classe, habilidades_obj)
 
     def __str__(self):

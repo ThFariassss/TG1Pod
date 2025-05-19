@@ -68,6 +68,7 @@ class Guerreiro(Classe):
         limite_habilidades = 2
         super().__init__("Guerreiro", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
 
+    """Método que simula um ataque um ataque do personagem, retornando o dano causado. rola o dado de ataque do personagem, soma o valor com os pontos de ataque"""
     def atacar(self, alvo): 
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque
         print(f"{self.nome} ataca {alvo.nome} causando {dano} de dano!")
@@ -81,6 +82,7 @@ class Mago(Classe):
         limite_habilidades = 5
         super().__init__("Mago", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
 
+    """Método que simula um ataque do personagem, retornando o dano causado. Rola o dado de ataque do personagem, soma o valor com os pontos de ataque"""
     def atacar(self, alvo): 
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque
         print(f"{self.nome} lança uma magia em {alvo.nome} causando {dano} de dano!")
@@ -93,7 +95,7 @@ class Ladino(Classe):
         pontos_ataque = 8
         limite_habilidades = 3
         super().__init__("Ladino", pontos_vida, dado_de_ataque, pontos_ataque, pontos_defesa, limite_habilidades)
-
+    """Método que simula um ataque do personagem, retornando o dano causado. Rola o dado de ataque do personagem, soma o valor com os pontos de ataque"""
     def atacar(self, alvo): 
         dano = self.dado_de_ataque.jogar() + self.pontos_ataque
         print(f"{self.nome} golpeia {alvo.nome} nas sombras causando {dano} de dano!")

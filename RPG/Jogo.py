@@ -9,10 +9,12 @@ class Dado(ABC):
 
     def __str__(self):
         return f'Dado de {self.__lados} lados'
-
+    
+    """Representação em string do dado"""
     def __repr__(self):
         return f'Dado(lados={self.__lados})'
-
+    
+    """Compara se dois dados são iguais, comparando o número de lados"""
     def __eq__(self, other):
         if isinstance(other, Dado):
             return self.__lados == other.__lados
@@ -47,7 +49,6 @@ class Dado(ABC):
         if isinstance(other, Dado):
             return self.lados > other.lados
     
-
     def __ge__(self, other):
      if isinstance(other, Dado):
             return self.lados >= other.lados
@@ -91,49 +92,42 @@ class D20(Dado):
     def jogar(self,):
         return random.randint(1, self.lados)
 
-
 class Arena:
     def __init__(self):
         self.personagens = []
 
+    """Metodo que adiciona um personagem a arena"""
     def adicionar_personagem(self, personagem):
         self.personagens.append(personagem)
 
+    """Metodo que remove o personagem da arena"""
     def remover_personagem(self, personagem):
         if personagem in self.personagens:
             self.personagens.remove(personagem)
             return True
         return False
-
+    """Faz os personagem lutar entre si até restar apenas 1 vivo, e mostra o que ocorre em cada turno"""
     def combate(self):
         if len(self.personagens) < 2:
             return "É necessário pelo menos dois personagens para iniciar o combate."
-
         dado = D20()  
         vivos = self.personagens.copy()
-
         turno = 0
         while len(vivos) > 1:
             atacante = vivos[turno % len(vivos)]
             alvos = [p for p in vivos if p != atacante]
             defensor = random.choice(alvos)
-
             ataque_rodada = dado.jogar() + atacante.classe.pontos_ataque
-
             if ataque_rodada > defensor.classe.pontos_defesa:
                 dano = atacante.classe.pontos_ataque
                 defensor.classe._Classe__pontos_vida -= dano
-
                 print(f"{atacante.nome} ataca {defensor.nome} com sucesso! Dano: {dano}. PV restante de {defensor.nome}: {defensor.classe.pontos_vida}")
-                
                 if defensor.classe.pontos_vida <= 0:
                     print(f"{defensor.nome} foi derrotado!")
                     vivos.remove(defensor)
             else:
                 print(f"{atacante.nome} atacou {defensor.nome} e errou!")
-
             turno += 1
-
         vencedor = vivos[0]
         print(f"Combate encerrado! Vencedor: {vencedor.nome}")
         return vencedor

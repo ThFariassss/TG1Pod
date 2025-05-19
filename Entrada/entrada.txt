@@ -48,3 +48,14 @@
   - Tiro de Arco
   - Cura
   - Escudo Divino
+
+
+### Gui
+- **Classe**: Ladino
+- **Habilidades**:
+  - Tiro de Arco
+
+### tiago
+- **Classe**: Ladino
+- **Habilidades**:
+  - Tiro de Arco
